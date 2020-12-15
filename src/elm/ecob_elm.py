@@ -10,13 +10,13 @@ class ECOBELM(ELM):
     """
     Equality Constrained-Optimization-Based ELM
     """
-    def __init__(self, *, hidden_neurons=None, a=1, c=2 ** 0):
+    def __init__(self, *, hidden_neurons=None, a=1, c=2 ** 0, random_state=None):
         """
         Args:
         hid_num (int): number of hidden layer
         a (int) : const value of sigmoid function
         """
-        super().__init__(hidden_neurons=hidden_neurons, a=a)
+        super().__init__(hidden_neurons=hidden_neurons, a=a, random_state=random_state)
 
         self.beta = None
         self.c = c
@@ -67,7 +67,7 @@ def main():
     print(db_name)
     print('ECOBELM', hid_num)
 
-    e = ECOBELM(hidden_neurons=hid_num, c=2**5)
+    e = ECOBELM(hidden_neurons=hid_num, c=2 ** 5, random_state=0)
     ave = 0
     for i in range(10):
         scores = cross_val_score(e, data_set.data, data_set.target, cv=5, scoring='accuracy')
@@ -78,7 +78,7 @@ def main():
     print("Accuracy: %0.2f " % ave)
     print('ELM', hid_num)
 
-    e = ELM(hidden_neurons=hid_num)
+    e = ELM(hidden_neurons=hid_num, random_state=0)
     ave = 0
 
     for i in range(10):

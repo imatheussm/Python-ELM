@@ -159,11 +159,11 @@ def main():
     for hid_num in hid_nums:
         print(hid_num, end=' ')
 
-        e = ELM(hidden_neurons=hid_num)
+        e = ELM(hidden_neurons=hid_num, random_state=0)
 
         ave = 0
         for i in range(10):
-            cv = KFold(n_splits=5, shuffle=True)
+            cv = KFold(n_splits=5, shuffle=True, random_state=0)
             scores = cross_val_score(e, data_set.data, data_set.target, cv=cv, scoring='accuracy', n_jobs=-1)
             ave += scores.mean()
 

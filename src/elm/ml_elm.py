@@ -10,8 +10,8 @@ class MLELM(ELM):
     """
     Multi Layer Extreme Learning Machine
     """
-    def __init__(self, *, hidden_neurons=None, a=1):
-        super().__init__(hidden_neurons=hidden_neurons, a=a)
+    def __init__(self, *, hidden_neurons=None, a=1, random_state=None):
+        super().__init__(hidden_neurons=hidden_neurons, a=a, random_state=random_state)
 
         self.betas = []
         self.elm = None
@@ -66,10 +66,10 @@ def main():
     tmpL = [1 if i == "tested_positive" else -1 for i in tmp]
     data_set.target = tmpL
 
-    X_train, X_test, y_train, y_test = train_test_split(data_set.data, data_set.target, test_size=0.4)
+    X_train, X_test, y_train, y_test = train_test_split(data_set.data, data_set.target, test_size=0.4, random_state=0)
 
-    mlelm = MLELM(hidden_neurons=(10, 30, 200)).fit(X_train, y_train)
-    elm = ELM(hidden_neurons=200).fit(X_train, y_train)
+    mlelm = MLELM(hidden_neurons=(10, 30, 200), random_state=0).fit(X_train, y_train)
+    elm = ELM(hidden_neurons=200, random_state=0).fit(X_train, y_train)
 
     print("MLELM Accuracy %0.3f " % mlelm.score(X_test, y_test))
     print("ELM Accuracy %0.3f " % elm.score(X_test, y_test))
